@@ -19,19 +19,34 @@ public class CalculatorController {
         return "Добро пожаловать в калькулятор";
     }
     @GetMapping("/plus")
-    public String plus(@RequestParam(required = false) Double num1, @RequestParam(required = false) Double num2) {
+    public String plus(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
+                checkNums(num1, num2);
                 return calculatorService.printPlus(num1, num2);
     }
     @GetMapping("/minus")
-    public String minus(@RequestParam(required = false) Double num1, @RequestParam(required = false) Double num2) {
+    public String minus(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
+                checkNums(num1, num2);
                 return calculatorService.printMinus(num1,num2);
     }
     @GetMapping("/multiply")
-    public String multiply(@RequestParam(required = false) Double num1, @RequestParam(required = false) Double num2) {
+    public String multiply(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
+                checkNums(num1, num2);
                 return calculatorService.printMultiply(num1, num2);
     }
     @GetMapping("/divide")
-    public String divide(@RequestParam(required = false) Double num1, @RequestParam(required = false) Double num2) {
+    public String divide(@RequestParam(required = false) Integer num1, @RequestParam(required = false) Integer num2) {
+                checkNums(num1, num2);
+        if (num2 == 0) {
+            return "делить на ноль нельзя";
+        }
              return calculatorService.printDivide(num1, num2);
+    }
+    private void checkNums(Integer num1, Integer num2) {
+        if (num1 == null) {
+            System.out.println("Параметр num1 не передан");
+            if (num2 == null) {
+                System.out.println("Параметр num2 не передан");
+            }
+        }
     }
 }
